@@ -3,6 +3,7 @@
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 import csv
+import numpy as np
 
 # Open the CSV file and create a reader object
 with open("ShowcaseDataWinter2023.csv", newline="") as csvfile:
@@ -40,7 +41,61 @@ for i in range(len(data)):
         except(IndexError):
             break
 
-print(data)
+
+rfr = RandomForestRegressor()
+
+features_indices = [16, 17, 19, 20, 22, 25, 26] #[0, 1, 3, 4, 6, 7, 9]
+target_indices = [0, 3, 4, 6]
+
+# get training set of data
+count = 0
+training_set = []
+for row in data:
+    if count > 100000:
+        break
+    training_set.append([row[i] for i in features_indices])
+    count  = count + 1
+
+# get testing set of data
+count = 0
+testing_set = []
+for row in data:
+    if count < 100000:
+        count = count + 1
+        continue
+    else:
+        testing_set.append([row[i] for i in features_indices])
+
+# get target set for training set
+training_target_set = []
+count = 0
+for row in data:
+    if count > 100000:
+        break
+    training_target_set.append([row[i] for i in target_indices])
+    count  = count + 1
+
+# get target set for testing set
+count = 0
+testing_target_set = []
+for row in data:
+    if count < 100000:
+        count = count + 1
+        continue
+    else:
+        testing_target_set.append([row[i] for i in target_indices])
+
+print(len(training_set))
+print('Test:', len(testing_set))
+
+rfr.fit(training_set, training_target_set)
+
+print('testing')
+test = np.array(testing_set[2])
+print(rfr.predict(test.reshape(1, -1)))
+print(testing_target_set[2])
+
+# print(data)
 print(len(data))
 print(len(data[0]))
 print(nulls)
