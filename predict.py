@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 import csv
 import numpy as np
+import re
 
 # Open the CSV file and create a reader object
 with open("ShowcaseDataWinter2023.csv", newline="") as csvfile:
@@ -94,6 +95,11 @@ print('testing')
 test = np.array(testing_set[2])
 print(rfr.predict(test.reshape(1, -1)))
 print(testing_target_set[2])
+
+print('TEST2')
+test = np.array(testing_set[200])
+print(rfr.predict(test.reshape(1, -1)))
+print(testing_target_set[200])
 
 # print(data)
 print(len(data))
