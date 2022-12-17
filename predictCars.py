@@ -6,6 +6,9 @@ import csv
 import numpy as np
 import re
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import OneHotEncoder
+
 
 # Open the CSV file and create a reader object
 with open("ShowcaseDataWinter2023.csv", newline="") as csvfile:
@@ -38,7 +41,7 @@ print('DATA:', len(data))
 # making the regressor
 rfr = RandomForestRegressor()
 
-features_indices = [16, 17, 19, 20, 22, 25, 26] #[0, 1, 3, 4, 6, 7, 9]
+features_indices = [16, 17, 19, 20, 22, 25, 26]
 target_indices = [0, 3, 4, 6]
 
 # get feature set of data
@@ -46,21 +49,50 @@ feature_set = []
 for row in data:
     feature_set.append([row[i] for i in features_indices])
 
+# for feature in feature_set:
+
+
 # get target set for training set
 target_set = []
 for row in data:
     target_set.append([row[i] for i in target_indices])
 
+one_hot_encoder = OneHotEncoder()
+feature_set = one_hot_encoder.fit_transform(feature_set)
 X_train, X_test, y_train, y_test = train_test_split(
                                     feature_set, target_set, test_size=0.2, random_state=42)
 
+
+# Create the decision tree model
+model = DecisionTreeClassifier()
+
+# Train the model on the training data
+model.fit(X_train, y_train)
+
+# Test the model on the test data
+y_pred = model.predict(X_test)
+print('TEST1')
+print('PREDICTED:', y_pred[1])
+print('ACTUAL:', y_test[1])
+print()
+print('TEST2')
+print('PREDICTED:', y_pred[10])
+print('ACTUAL:', y_test[10])
+print()
+print('TEST3')
+print('PREDICTED:', y_pred[100])
+print('ACTUAL:', y_test[100])
+# Calculate the accuracy of the model
+# accuracy = model.score(X_test, y_test)
+# print("Accuracy: ", accuracy)
+
+# print(X_train)
 # print(X_test)
-# print(y_test)
-print('xtest', len(X_test))
-print('xtrain', len(X_train))
-print('ytrain', len(y_train))
-print('ytest', len(y_test))
-print('data', len(data))
-print(nulls)
+# print('xtest', len(X_test))
+# print('xtrain', len(X_train))
+# print('ytrain', len(y_train))
+# print('ytest', len(y_test))
+# print('data', len(data))
+# print(nulls)
 
 # rfr.fit(X_train, y_train)
