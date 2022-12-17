@@ -1,14 +1,10 @@
 # predicts car to buy based on car sold to carmax
 
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.preprocessing import LabelEncoder
-import csv
-import numpy as np
-import re
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import OneHotEncoder
-
+import csv
 
 # Open the CSV file and create a reader object
 with open("ShowcaseDataWinter2023.csv", newline="") as csvfile:
@@ -37,7 +33,7 @@ for i in range(len(data)):
             continue
             # print(i)
 
-print('DATA:', len(data))
+print('Dataset Length:', len(data))
 # making the regressor
 rfr = RandomForestRegressor()
 
@@ -48,9 +44,6 @@ target_indices = [0, 3, 4, 6]
 feature_set = []
 for row in data:
     feature_set.append([row[i] for i in features_indices])
-
-# for feature in feature_set:
-
 
 # get target set for training set
 target_set = []
@@ -82,17 +75,8 @@ print()
 print('TEST3')
 print('PREDICTED:', y_pred[100])
 print('ACTUAL:', y_test[100])
+
+
 # Calculate the accuracy of the model
 # accuracy = model.score(X_test, y_test)
 # print("Accuracy: ", accuracy)
-
-# print(X_train)
-# print(X_test)
-# print('xtest', len(X_test))
-# print('xtrain', len(X_train))
-# print('ytrain', len(y_train))
-# print('ytest', len(y_test))
-# print('data', len(data))
-# print(nulls)
-
-# rfr.fit(X_train, y_train)
