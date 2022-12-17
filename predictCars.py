@@ -33,8 +33,8 @@ for i in range(len(data)):
             continue
 
 print('Dataset Length:', len(data))
-# making the regressor
-rfr = RandomForestRegressor()
+# making the regressor (not being used right now)
+# rfr = RandomForestRegressor()
 
 features_indices = [16, 17, 19, 20, 22, 25, 26]
 target_indices = [0, 3, 4, 6]
