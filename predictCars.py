@@ -31,7 +31,6 @@ for i in range(len(data)):
                 nulls = nulls + 1
         except(IndexError):
             continue
-            # print(i)
 
 print('Dataset Length:', len(data))
 # making the regressor
@@ -75,6 +74,10 @@ print()
 print('TEST3')
 print('PREDICTED:', y_pred[100])
 print('ACTUAL:', y_test[100])
+print()
+print('TEST4')
+print('PREDICTED:', y_pred[1000])
+print('ACTUAL:', y_test[1000])
 
 
 # Calculate the accuracy of the model
