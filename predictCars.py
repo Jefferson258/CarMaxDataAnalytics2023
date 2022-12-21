@@ -58,8 +58,7 @@ for i in range(len(data)):
 print('Dataset Length:', len(data))
 # making the regressor (not being used right now)
 rfr = RandomForestRegressor()
-# regressor_features = []
-# classifier_features = []
+
 features_indices = [1, 16, 17, 19, 20, 22, 25, 26]
 regressor_feature_indices = [1, 16, 17, 24, 25, 26, 27, 29]
 target_indices = [0, 3, 4, 6]
@@ -95,15 +94,21 @@ for row in regressor_target_set:
 X_train, X_test, y_train, y_test = train_test_split(
                                     regressor_feature_set, regressor_target_set, test_size=0.2, random_state=42)
 
-for row in regressor_target_set:
-    for i in row:
-        if i == 'null':
-            print(row)
+
 rfr.fit(X_train, y_train)
 y_pred = rfr.predict(X_test)
-print('testing regressor')
+print('TESTING REGRESSOR')
+print('TEST1')
 print('Actual:', y_test[10])
 print('Predicted:', y_pred[10])
+print()
+print('TEST2')
+print('Actual:', y_test[100])
+print('Predicted:', y_pred[100])
+print()
+print('TEST3')
+print('Actual:', y_test[1000])
+print('Predicted:', y_pred[1000])
 
 one_hot_encoder = OneHotEncoder()
 feature_set = one_hot_encoder.fit_transform(feature_set)
@@ -119,6 +124,7 @@ model.fit(X_train, y_train)
 
 # Test the model on the test data
 y_pred = model.predict(X_test)
+print('TESTING CLASSIFIER')
 print('TEST1')
 print('PREDICTED:', y_pred[1])
 print('ACTUAL:', y_test[1])
@@ -134,15 +140,3 @@ print()
 print('TEST4')
 print('PREDICTED:', y_pred[1000])
 print('ACTUAL:', y_test[1000])
-
-# print('Finding Car')
-# for row in data:
-#     if row[6] == y_pred[100][3]:
-#         if row[3] == y_pred[100][1]:
-#             if row[0] == y_pred[100][0]:
-#                 # if row[4] == y_pred[100][2]:
-#                 print(row)
-#                 print(y_pred[100])
-# Calculate the accuracy of the model
-# accuracy = model.score(X_test, y_test)
-# print("Accuracy: ", accuracy)
