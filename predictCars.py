@@ -9,6 +9,7 @@ import re
 
 
 def average_values(s):
+    # print(s)
     # Split the string into a list of substrings separated by "to" or "-"
     substrings = s.split("to")
     if len(substrings) == 1:
@@ -60,7 +61,18 @@ rfr = RandomForestRegressor()
 # regressor_features = []
 # classifier_features = []
 features_indices = [1, 16, 17, 19, 20, 22, 25, 26]
+regressor_feature_indices = [1, 16, 17, 24, 25, 26, 27, 29]
 target_indices = [0, 3, 4, 6]
+regressor_target_indices = [0, 3, 4]
+
+# get feature set for regressor
+regressor_feature_set = []
+for row in data:
+    regressor_feature_set.append([row[i] for i in regressor_feature_indices])
+
+regressor_target_set = []
+for row in data:
+    regressor_target_set.append([row[i] for i in regressor_target_indices])
 
 # get feature set of data
 feature_set = []
@@ -72,13 +84,21 @@ target_set = []
 for row in data:
     target_set.append([row[i] for i in target_indices])
 
-for row in feature_set:
+for row in regressor_feature_set:
+    row[0] = average_values(row[0])
+    row[2] = average_values(row[2])
+
+for row in regressor_target_set:
     row[0] = average_values(row[0])
     row[2] = average_values(row[2])
 
 X_train, X_test, y_train, y_test = train_test_split(
-                                    feature_set, target_set, test_size=0.2, random_state=42)
+                                    regressor_feature_set, regressor_target_set, test_size=0.2, random_state=42)
 
+for row in regressor_target_set:
+    for i in row:
+        if i == 'null':
+            print(row)
 rfr.fit(X_train, y_train)
 y_pred = rfr.predict(X_test)
 print('testing regressor')
