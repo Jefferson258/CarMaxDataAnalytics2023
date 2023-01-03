@@ -6,6 +6,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import OneHotEncoder
 import csv
 import re
+import matplotlib.pyplot as plt
 
 
 def average_values(s):
@@ -110,12 +111,41 @@ print('TEST3')
 print('Actual:', y_test[1000])
 print('Predicted:', y_pred[1000])
 
+diffYears = []
+print(y_pred[1])
+print(y_pred[1][1])
+print(type(y_pred[1][1]))
+print(y_test[1])
+print(y_test[1][1])
+print(type(y_test[1][1]))
+
+for i in range(0, 1000):
+    print(y_pred[i][1] - float(y_test[i][1]))
+    print(y_test[i][1])
+    diffYears.append(y_pred[i][1] - float(y_test[i][1]))
+
+print(diffYears)
+
+# Create the histogram
+plt.hist(diffYears)
+
+# Add a title and labels
+plt.title('Histogram of Data')
+plt.xlabel('Data Values')
+plt.ylabel('Frequency')
+
+# Show the plot
+# plt.show()
+
+# Save the plot
+plt.savefig('yearsDiff.png')
+print('made it to classifier')
 one_hot_encoder = OneHotEncoder()
 feature_set = one_hot_encoder.fit_transform(feature_set)
 X_train, X_test, y_train, y_test = train_test_split(
                                     feature_set, target_set, test_size=0.2, random_state=42)
 
-
+print('classifying')
 # Create the decision tree model
 model = DecisionTreeClassifier()
 
